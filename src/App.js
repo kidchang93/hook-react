@@ -2,6 +2,7 @@ import React from "react";
 import Counter from "./Counter";
 import Info from "./Info";
 import CounterReducer from "./CounterReducer";
+import Average from "./Average";
 
 const App = () => {
 	return (
@@ -10,6 +11,8 @@ const App = () => {
 			<Counter />
 			<hr />
 			<CounterReducer />
+			<hr />
+			<Average />
 		</div>
 	);
 };
