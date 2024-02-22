@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 const getAverage = (numbers) => {
 	console.log("평균 계산중...");
 	if (numbers.length == 0) return 0;
@@ -9,10 +9,13 @@ const set1 = new Set();
 const Average = () => {
 	const [list, setList] = useState([]);
 	const [number, setNumber] = useState("");
+	const inputEl = useRef(null);
 	const onClick = useCallback(() => {
 		setList(list.concat(parseInt(number)));
 		setNumber("");
-	}, [list]);
+		inputEl.current.focus(); // 입력 후 focus
+	}, [number, list]);
+
 	set1.add(onClick); // set 은 숫자뿐만 아니라 obj를 참조하는 것들도
 	console.log(set1); // useCallback 미사용시 리랜더링 시 계속 데이터가 찍힌다.
 
@@ -24,6 +27,7 @@ const Average = () => {
 				name="number"
 				value={number}
 				onChange={(e) => setNumber(e.target.value)}
+				ref={inputEl}
 			/>
 			<button onClick={onClick}>등록</button> number:{number}
 			<br />
