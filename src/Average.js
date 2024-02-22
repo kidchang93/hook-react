@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 const getAverage = (numbers) => {
 	console.log("평균 계산중...");
 	if (numbers.length == 0) return 0;
@@ -13,6 +13,8 @@ const Average = () => {
 		setList(list.concat(parseInt(number)));
 		setNumber("");
 	};
+	// 연산식이 있다면? 메모에 등록해서 쓴다. ( 과부하 방지 , 최적화 )
+	const avg = useMemo(() => getAverage(list), [list]);
 	return (
 		<div>
 			<input
@@ -27,7 +29,7 @@ const Average = () => {
 					<li key={index}>{value}</li>
 				))}
 			</ul>
-			평균 : {getAverage(list)}
+			평균 : {avg}
 		</div>
 	);
 };
